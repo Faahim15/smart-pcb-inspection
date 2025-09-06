@@ -10,7 +10,7 @@ import {
   StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { router } from "expo-router";
 export default function CreateAccountScreen() {
   const [email, setEmail] = useState("john@example.com");
   const [password, setPassword] = useState("");
@@ -26,30 +26,29 @@ export default function CreateAccountScreen() {
       className="flex-1 bg-gray-50"
     >
       <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
+      {/* Header */}
+      <View className="items-center mt-[2%] mb-[8%]">
+        <View className="w-[60px] h-[60px] bg-purple-600 rounded-2xl items-center justify-center mb-[4%]">
+          <Ionicons name="rocket" size={28} color="white" />
+        </View>
+        <Text className="text-2xl font-poppinsBold text-gray-900 mb-[2%]">
+          Create Account
+        </Text>
+        <Text className="text-gray-600 font-poppins text-sm text-center">
+          Join thousands of users and start your journey
+        </Text>
+      </View>
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
         className="px-[6%]"
       >
         <View className="flex-1 justify-center py-[8%]">
-          {/* Header */}
-          <View className="items-center mb-[8%]">
-            <View className="w-[60px] h-[60px] bg-purple-600 rounded-2xl items-center justify-center mb-[4%]">
-              <Ionicons name="rocket" size={28} color="white" />
-            </View>
-            <Text className="text-2xl font-bold text-gray-900 mb-[2%]">
-              Create Account
-            </Text>
-            <Text className="text-gray-600 text-center">
-              Join thousands of users and start your journey
-            </Text>
-          </View>
-
           {/* Form Fields */}
-          <View className="space-y-4">
+          <View className="gap-[2%]">
             {/* Email Address */}
-            <View>
-              <Text className="text-gray-700 font-medium mb-[2%]">
+            <View className="">
+              <Text className="text-gray-700 mt-[10%] font-medium mb-[2%]">
                 Email Address
               </Text>
               <View className="relative">
@@ -182,7 +181,10 @@ export default function CreateAccountScreen() {
             </View>
 
             {/* Create Account Button */}
-            <TouchableOpacity className="w-full h-[56px] bg-purple-600 rounded-lg items-center justify-center mt-[6%] flex-row">
+            <TouchableOpacity
+              onPress={() => router.push("/auth/signIn")}
+              className="w-full h-[56px] bg-purple-600 rounded-lg items-center justify-center mt-[6%] flex-row"
+            >
               <Text className="text-white font-semibold text-lg mr-[2%]">
                 Create Account
               </Text>
@@ -190,12 +192,12 @@ export default function CreateAccountScreen() {
             </TouchableOpacity>
 
             {/* Divider */}
-            <View className="items-center mt-[6%] mb-[4%]">
+            <View className="items-center mt-[0%] mb-[0%]">
               <Text className="text-gray-500">Or continue with</Text>
             </View>
 
             {/* Social Login Buttons */}
-            <View className="flex-row space-x-4">
+            <View className="flex-row gap-[2%]">
               <TouchableOpacity className="flex-1 h-[56px] bg-white border border-gray-200 rounded-lg items-center justify-center flex-row">
                 <Ionicons name="logo-google" size={20} color="#EA4335" />
                 <Text className="text-gray-700 font-medium ml-[2%]">
@@ -210,7 +212,7 @@ export default function CreateAccountScreen() {
             </View>
 
             {/* Sign In Link */}
-            <View className="items-center mt-[6%] mb-[4%]">
+            <View className="items-center  mb-[4%]">
               <Text className="text-gray-600">
                 Already have an account?{" "}
                 <Text className="text-purple-600 font-medium">Sign in</Text>
