@@ -10,6 +10,10 @@ import {
   StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import InputField from "../components/auth/InputField";
+import PasswordField from "../components/auth/PasswordField";
+import AuthButton from "../components/auth/AuthButton";
+import { router } from "expo-router";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -22,8 +26,8 @@ export default function LoginScreen() {
       className="flex-1"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <StatusBar barStyle="light-content" backgroundColor="#4F46E5" />
-
+      {/* <StatusBar barStyle="light-content" backgroundColor="#4F46E5" /> */}
+      <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
       <ScrollView
         className="flex-1 bg-white"
         contentContainerStyle={{ flexGrow: 1 }}
@@ -35,11 +39,11 @@ export default function LoginScreen() {
             <Ionicons name="person" size={32} color="white" />
           </View>
 
-          <Text className="text-white text-2xl font-bold mb-[2%]">
+          <Text className="text-white text-2xl font-poppinsBold mb-[2%]">
             Welcome Back
           </Text>
 
-          <Text className="text-white/90 text-base">
+          <Text className="text-white/90 font-poppins text-base">
             Sign in to your account
           </Text>
         </View>
@@ -47,7 +51,7 @@ export default function LoginScreen() {
         {/* Form Section */}
         <View className="flex-1 px-[6%] pt-[8%]">
           {/* Email Input */}
-          <View className="mb-[5%]">
+          {/* <View className="mb-[5%]">
             <Text className="text-gray-700 text-sm mb-[2%] font-medium">
               Email Address
             </Text>
@@ -64,48 +68,32 @@ export default function LoginScreen() {
                 autoComplete="email"
               />
             </View>
+          </View> */}
+          <View className="mb-[3%]">
+            <InputField
+              inputConfig={{
+                label: "Email Address",
+                placeholder: "john@example.com",
+                keyboardType: "email-address",
+                autoCapitalize: "none",
+                icon: "mail-outline",
+              }}
+            />
           </View>
 
           {/* Password Input */}
-          <View className="mb-[5%]">
-            <Text className="text-gray-700 text-sm mb-[2%] font-medium">
-              Password
-            </Text>
-            <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-lg px-[4%] h-[12%] min-h-[50px]">
-              <Ionicons name="lock-closed-outline" size={20} color="#9CA3AF" />
-              <TextInput
-                className="flex-1 ml-[3%] text-gray-900 text-base"
-                placeholder="Enter your password"
-                placeholderTextColor="#9CA3AF"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={!showPassword}
-                autoCapitalize="none"
-                autoComplete="current-password"
-              />
-              <TouchableOpacity
-                onPress={() => setShowPassword(!showPassword)}
-                className="p-[1%]"
-              >
-                <Ionicons
-                  name={showPassword ? "eye-outline" : "eye-off-outline"}
-                  size={20}
-                  color="#9CA3AF"
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
+          <PasswordField />
 
           {/* Remember Me & Forgot Password */}
-          <View className="flex-row justify-between items-center mb-[8%]">
+          <View className="flex-row mt-[5%] justify-between items-center mb-[0%]">
             <TouchableOpacity
               className="flex-row items-center"
               onPress={() => setRememberMe(!rememberMe)}
             >
               <View
-                className={`w-[18px] h-[18px] border-2 rounded mr-[3%] items-center justify-center ${
+                className={`w-[18px]  h-[18px] border-2 rounded mr-[3%] items-center justify-center ${
                   rememberMe
-                    ? "bg-indigo-600 border-indigo-600"
+                    ? "bg-purple-600 border-purple-600"
                     : "border-gray-300"
                 }`}
               >
@@ -113,52 +101,51 @@ export default function LoginScreen() {
                   <Ionicons name="checkmark" size={12} color="white" />
                 )}
               </View>
-              <Text className="text-gray-600 text-sm">Remember me</Text>
+              <Text className="text-gray-600 font-poppins text-sm">
+                Remember me
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
-              <Text className="text-indigo-600 text-sm font-medium">
+              <Text className="text-purple-600 text-sm font-poppinsMedium">
                 Forgot Password?
               </Text>
             </TouchableOpacity>
           </View>
 
           {/* Sign In Button */}
-          <TouchableOpacity className="bg-indigo-600 rounded-lg h-[12%] min-h-[50px] items-center justify-center mb-[6%]">
-            <Text className="text-white text-base font-semibold">Sign In</Text>
-          </TouchableOpacity>
+          <View className="mt-[3%]">
+            <AuthButton
+              title="Sign In"
+              agreeToTerms={true}
+              onPress={() => router.replace("/home")}
+            />
+          </View>
 
           {/* Divider */}
-          <View className="flex-row items-center mb-[6%]">
+          <View className="flex-row mt-[3%] items-center mb-[0%]">
             <View className="flex-1 h-[1px] bg-gray-200" />
-            <Text className="mx-[4%] text-gray-500 text-sm">
+            <Text className="mx-[4%] text-gray-500 font-poppins text-sm">
               or continue with
             </Text>
             <View className="flex-1 h-[1px] bg-gray-200" />
           </View>
 
           {/* Social Login Buttons */}
-          <TouchableOpacity className="flex-row items-center justify-center border border-gray-200 rounded-lg h-[12%] min-h-[50px] mb-[4%]">
+          <TouchableOpacity className="flex-row mt-[3%] items-center justify-center border border-gray-200 rounded-lg h-[12%] min-h-[50px] mb-[0%]">
             <Ionicons name="logo-google" size={20} color="#EA4335" />
-            <Text className="ml-[3%] text-gray-700 text-base font-medium">
+            <Text className="ml-[3%] font-poppinsSemiBold text-gray-700 text-base font-medium">
               Continue with Google
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity className="flex-row items-center justify-center border border-gray-200 rounded-lg h-[12%] min-h-[50px] mb-[8%]">
-            <Ionicons name="logo-apple" size={20} color="#000000" />
-            <Text className="ml-[3%] text-gray-700 text-base font-medium">
-              Continue with Apple
-            </Text>
-          </TouchableOpacity>
-
           {/* Create Account Link */}
-          <View className="flex-row justify-center mb-[6%]">
-            <Text className="text-gray-600 text-sm">
+          <View className="flex-row justify-center mt-[2%] mb-[3%]">
+            <Text className="text-gray-600 font-poppins text-sm">
               Don't have an account?{" "}
             </Text>
             <TouchableOpacity>
-              <Text className="text-indigo-600 text-sm font-medium">
+              <Text className="text-purple-600 text-sm font-poppinsMedium ">
                 Create Account
               </Text>
             </TouchableOpacity>
@@ -167,14 +154,18 @@ export default function LoginScreen() {
           {/* Footer Links */}
           <View className="flex-row justify-center items-center mb-[4%]">
             <TouchableOpacity className="mr-[6%]">
-              <Text className="text-gray-500 text-xs">Privacy Policy</Text>
+              <Text className="text-gray-500 font-poppins text-xs">
+                Privacy Policy
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text className="text-gray-500 text-xs">Terms of Service</Text>
+              <Text className="text-gray-500 font-poppins text-xs">
+                Terms of Service
+              </Text>
             </TouchableOpacity>
           </View>
 
-          <Text className="text-center text-gray-400 text-xs mb-[4%]">
+          <Text className="text-center font-poppins text-gray-400 text-xs mb-[4%]">
             © 2024 SecureApp. All rights reserved.
           </Text>
         </View>

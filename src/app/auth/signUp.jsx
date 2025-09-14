@@ -11,13 +11,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import InputField from "../components/auth/InputField";
+import PasswordField from "../components/auth/PasswordField";
+import ConfirmPassword from "../components/auth/ConfirmPassword";
+import AuthButton from "../components/auth/AuthButton";
 export default function CreateAccountScreen() {
-  const [email, setEmail] = useState("john@example.com");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [organizationName, setOrganizationName] = useState("Your Company");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   return (
@@ -47,113 +45,34 @@ export default function CreateAccountScreen() {
           {/* Form Fields */}
           <View className="gap-[2%]">
             {/* Email Address */}
-            <View className="">
-              <Text className="text-gray-700 mt-[10%] font-medium mb-[2%]">
-                Email Address
-              </Text>
-              <View className="relative">
-                <View className="absolute left-[4%] top-[18px] z-10">
-                  <Ionicons name="mail-outline" size={20} color="#9CA3AF" />
-                </View>
-                <TextInput
-                  value={email}
-                  onChangeText={setEmail}
-                  placeholder="john@example.com"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  className="w-full h-[56px] bg-white border border-gray-200 rounded-lg pl-[14%] pr-[4%] text-gray-900"
-                />
-              </View>
+            <View className="mt-[10%]">
+              <InputField
+                inputConfig={{
+                  label: "Email Address",
+                  placeholder: "john@example.com",
+                  keyboardType: "email-address",
+                  autoCapitalize: "none",
+                  icon: "mail-outline",
+                }}
+              />
             </View>
 
             {/* Password */}
-            <View>
-              <Text className="text-gray-700 font-medium mb-[2%]">
-                Password
-              </Text>
-              <View className="relative">
-                <View className="absolute left-[4%] top-[18px] z-10">
-                  <Ionicons
-                    name="lock-closed-outline"
-                    size={20}
-                    color="#9CA3AF"
-                  />
-                </View>
-                <TextInput
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="••••••••"
-                  secureTextEntry={!showPassword}
-                  className="w-full h-[56px] bg-white border border-gray-200 rounded-lg pl-[14%] pr-[14%] text-gray-900"
-                />
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  className="absolute right-[4%] top-[18px]"
-                >
-                  <Ionicons
-                    name={showPassword ? "eye-off-outline" : "eye-outline"}
-                    size={20}
-                    color="#9CA3AF"
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+            <PasswordField />
 
             {/* Confirm Password */}
-            <View>
-              <Text className="text-gray-700 font-medium mb-[2%]">
-                Confirm Password
-              </Text>
-              <View className="relative">
-                <View className="absolute left-[4%] top-[18px] z-10">
-                  <Ionicons
-                    name="lock-closed-outline"
-                    size={20}
-                    color="#9CA3AF"
-                  />
-                </View>
-                <TextInput
-                  value={confirmPassword}
-                  onChangeText={setConfirmPassword}
-                  placeholder="••••••••"
-                  secureTextEntry={!showConfirmPassword}
-                  className="w-full h-[56px] bg-white border border-gray-200 rounded-lg pl-[14%] pr-[14%] text-gray-900"
-                />
-                <TouchableOpacity
-                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-[4%] top-[18px]"
-                >
-                  <Ionicons
-                    name={
-                      showConfirmPassword ? "eye-off-outline" : "eye-outline"
-                    }
-                    size={20}
-                    color="#9CA3AF"
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-
+            <ConfirmPassword />
             {/* Organization Name */}
-            <View>
-              <View className="flex-row items-center mb-[2%]">
-                <Text className="text-gray-700 font-medium">
-                  Organization Name
-                </Text>
-                <Text className="text-gray-400 ml-[2%]">(Optional)</Text>
-              </View>
-              <View className="relative">
-                <View className="absolute left-[4%] top-[18px] z-10">
-                  <Ionicons name="business-outline" size={20} color="#9CA3AF" />
-                </View>
-                <TextInput
-                  value={organizationName}
-                  onChangeText={setOrganizationName}
-                  placeholder="Your Company"
-                  className="w-full h-[56px] bg-white border border-gray-200 rounded-lg pl-[14%] pr-[4%] text-gray-900"
-                />
-              </View>
-            </View>
+
+            <InputField
+              inputConfig={{
+                label: "Organization Name",
+                placeholder: "Your Company",
+                keyboardType: "default",
+                autoCapitalize: "words",
+                icon: "business-outline",
+              }}
+            />
 
             {/* Terms and Conditions */}
             <View className="flex-row items-start mt-[4%]">
@@ -181,19 +100,17 @@ export default function CreateAccountScreen() {
             </View>
 
             {/* Create Account Button */}
-            <TouchableOpacity
+            <AuthButton
+              title="Create Account"
               onPress={() => router.push("/auth/signIn")}
-              className="w-full h-[56px] bg-purple-600 rounded-lg items-center justify-center mt-[6%] flex-row"
-            >
-              <Text className="text-white font-semibold text-lg mr-[2%]">
-                Create Account
-              </Text>
-              <Ionicons name="arrow-forward" size={20} color="white" />
-            </TouchableOpacity>
+              agreeToTerms={agreeToTerms}
+            />
 
             {/* Divider */}
-            <View className="items-center mt-[0%] mb-[0%]">
-              <Text className="text-gray-500">Or continue with</Text>
+            <View className="items-center ">
+              <Text className="text-gray-500 font-poppins ">
+                Or continue with
+              </Text>
             </View>
 
             {/* Social Login Buttons */}
@@ -205,17 +122,19 @@ export default function CreateAccountScreen() {
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity className="flex-1 h-[56px] bg-white border border-gray-200 rounded-lg items-center justify-center flex-row">
+              {/* <TouchableOpacity className="flex-1 h-[56px] bg-white border border-gray-200 rounded-lg items-center justify-center flex-row">
                 <Ionicons name="logo-apple" size={20} color="#000000" />
                 <Text className="text-gray-700 font-medium ml-[2%]">Apple</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
 
             {/* Sign In Link */}
-            <View className="items-center  mb-[4%]">
-              <Text className="text-gray-600">
+            <View className="items-center mb-[4%]">
+              <Text className="text-gray-600 font-poppins ">
                 Already have an account?{" "}
-                <Text className="text-purple-600 font-medium">Sign in</Text>
+                <Text className="text-purple-600 font-poppinsMedium ">
+                  Sign in
+                </Text>
               </Text>
             </View>
           </View>
