@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-export default function PasswordField() {
+export default function PasswordField({ label = "Password" }) {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <View>
-      <Text className="text-gray-700 font-medium mb-[2%]">Password</Text>
+      <Text className="text-gray-700 font-medium mb-[2%]">{label}</Text>
       <View className="relative">
         <View className="absolute left-[4%] top-[18px] z-10">
           <Ionicons name="lock-closed-outline" size={20} color="#9CA3AF" />

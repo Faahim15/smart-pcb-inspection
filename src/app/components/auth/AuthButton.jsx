@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function AuthButton({ onPress, title, agreeToTerms }) {
+export default function AuthButton({ onPress, title, agreeToTerms = true }) {
   return (
     <TouchableOpacity
       onPress={onPress}
